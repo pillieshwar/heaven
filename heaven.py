@@ -7,6 +7,7 @@ import webbrowser
 from playsound import playsound
 from mpyg321.mpyg321 import MPyg321Player
 from pygame import mixer
+from dict_of_songs import dict_of_songs as dos
 
 def speaker(text):
     engine = pyttsx3.init()
@@ -26,15 +27,15 @@ while(True):
             current_time = now.strftime("%H:%M")
             if ('time' in format(text)):
                 speaker(current_time)
-                print ('Current Time =', current_time)
             elif (format(text)=='good morning'):
                 speaker('A very good  morning, have a nice day')
-                print ('A very good  morning, have a nice day')
-            elif ('song' in format(text)):
+            elif ('play' in format(text)):
+                word = format(text).lower()
                 mixer.init()
-                mixer.music.load('C:/Users/eshwar/Documents/python_tests/patience.mp3')
+                path = dos(word[5:])
+                mixer.music.load(path)
                 mixer.music.play()
-            else:
+            elif ('stop' in format(text)):
                 mixer.music.stop()
         except:
             print ('Sorry could not recognize your voice')
