@@ -10,6 +10,7 @@ from pygame import mixer
 from dict_of_songs import dict_of_songs as dos
 from dict_of_bdays import dict_of_bdays as bday
 from voice_modulator import voice_modulator as vm
+from alarm import alarm
 from datetime import date
 import time
 
@@ -38,6 +39,12 @@ while(True):
                 path = dos(word[5:])
                 mixer.music.load(path)
                 mixer.music.play()
+                print (mixer.music.get_volume())
+            elif ('volume' in format(text)):
+                word = format(text).lower()
+                print (word[len(word)-3:])
+                mixer.music.set_volume(float(word[len(word)-3:]))
+                speaker("volume reset successful boss")
             elif ('stop' in format(text)):
                 print ('music stopped')
                 mixer.music.stop()
